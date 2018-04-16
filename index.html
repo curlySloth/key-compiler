@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>W2TG - K3Y COMPl1L3R</title>
   <style>
-    *{
-      padding:0;
-      margin:0;
+    * {
+      padding: 0;
+      margin: 0;
     }
   </style>
 </head>
+
 <body>
   <input type="text" data-key-input placeholder="ex: 1 - 123123123123" class="key"><button class="saveHash" data-save-key>Save</button>
 
@@ -23,34 +25,59 @@
   <div class="inputs">
     <button data-comple-btn>complie key</button>
   </div>
-
+  <div class="alert"></div>
   <script>
     var keyInput = document.querySelector('[data-key-input]');
     var saveKeyBTN = document.querySelector('[data-save-key]');
     var savedKeys = [];
     var savedKeysUI = document.querySelector('[data-saved-keys-ui]');
     var compileBTN = document.querySelector('[data-comple-btn]');
+    var alert = document.querySelector('.alert');
 
+    var hashRegex = /[1-8]{1}-[a-zA-Z0-9]{12}/;
 
-    saveKeyBTN.addEventListener('click',function(){
-      if(keyInput.value){
-       let str= keyInput.value;
-       //remove spaces
-         str = str.replace(/\s/g, "") ;
-         console.log(str.length);
-         if(str.length == 13){
-           //push to array
+    function alertUser(error,text){
+      //error = bool
+      if(error){
+        alert.className='invalid';
+        alert.innerText = text;
+      }else{
+        alert.className='valid';
+        alert.innerText = text;
+      }
+    }
+    saveKeyBTN.addEventListener('click', function() {
+      if (keyInput.value) {
+        let str = keyInput.value;
+        //remove spaces
+        str = str.replace(/\s/g, "");
+        if (str.length == 14) {
+          if(hashRegex.test(str)){
+            //push to array
             savedKeys.push(str);
             //sort the arry
             savedKeys.sort();
-           //push to saved keys
-           savedKeysUI.innerHTML += "<p>" + str + "</p>";
-           //reset keys
-           keyInput.value = null;
-         }
+            //push to saved keys
+            savedKeysUI.innerHTML += "<p>" + str + "</p>";
+            //reset keys
+            keyInput.value = null;
+            //empry alert box
+            alert.innerText='';
+            alert.className='';
+          }else{
+              alertUser(true,'invalid hash!');
+          }
 
+        } else {
+          //if input not long enough || to short
+          alertUser(true,'hash to short / to long!');
         }
+      } else {
+        //if input empty
+        alertUser(true,'no hash found!');
+      }
     });
   </script>
 </body>
+
 </html>
