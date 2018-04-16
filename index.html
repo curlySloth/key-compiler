@@ -21,16 +21,18 @@
 
   </div>
 
-  <div class="compiled-key"></div>
+
   <div class="inputs">
-    <button data-comple-btn>complie key</button>
+    <button data-comple-btn disabled>complie key</button>
   </div>
   <div class="alert"></div>
+  <div class="compiled-key"></div>
   <script>
     var keyInput = document.querySelector('[data-key-input]');
     var saveKeyBTN = document.querySelector('[data-save-key]');
     var savedKeys = [];
     var savedKeysUI = document.querySelector('[data-saved-keys-ui]');
+    var compiledKeyBox = document.querySelector('.compiled-key');
     var compileBTN = document.querySelector('[data-comple-btn]');
     var alert = document.querySelector('.alert');
 
@@ -65,17 +67,24 @@
             }
 
             if(!exists){
-              //push to array
-              savedKeys.push(str);
-              //sort the arry
-              savedKeys.sort();
-              //push to saved keys
-              savedKeysUI.innerHTML += "<p>" + str + "</p>";
-              //reset keys
-              keyInput.value = null;
-              //empry alert box
-              alert.innerText='';
-              alert.className='';
+
+              //check if already got 8 hashes
+              if(savedKeys.length < 8){
+                //push to array
+                savedKeys.push(str);
+                //sort the arry
+                savedKeys.sort();
+                //push to saved keys
+                savedKeysUI.innerHTML += "<p>" + str + "</p>";
+                //reset keys
+                keyInput.value = null;
+                //empry alert box
+                alert.innerText='';
+                alert.className='';
+              }else{
+                alertUser(true,'already got 8 hashes!');
+              }
+
             }else{
               alertUser(true,'hash index '+str[0]+ ' already exists!');
             }
@@ -92,7 +101,27 @@
         //if input empty
         alertUser(true,'no hash found!');
       }
-    });
+      //check if there are 8 hashes
+      if(savedKeys.length == 8){
+        compileBTN.disabled = false;
+      }
+    }
+  );
+
+
+  compileBTN.addEventListener('click',function(){
+      if(savedKeys.length == 8){
+        let compiledKey ='';
+        savedKeys.sort();
+
+        //compile keys
+        for(let i = 0; i<savedKeys.length;i++){
+          compiledKey += savedKeys[i].substring(2);
+        }
+        console.log(compiledKey.length);
+        compiledKeyBox.innerText = compiledKey;
+      }
+  });
   </script>
 </body>
 
