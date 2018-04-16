@@ -47,23 +47,39 @@
       }
     }
     saveKeyBTN.addEventListener('click', function() {
+      //if there is input
       if (keyInput.value) {
         let str = keyInput.value;
         //remove spaces
         str = str.replace(/\s/g, "");
+        //if the length is mached
         if (str.length == 14) {
+          //if regex mached
           if(hashRegex.test(str)){
-            //push to array
-            savedKeys.push(str);
-            //sort the arry
-            savedKeys.sort();
-            //push to saved keys
-            savedKeysUI.innerHTML += "<p>" + str + "</p>";
-            //reset keys
-            keyInput.value = null;
-            //empry alert box
-            alert.innerText='';
-            alert.className='';
+              let exists = false;
+            //check if index number already exsits
+            for (let i = 0; i < savedKeys.length;i++){
+              if(str[0] == savedKeys[i][0]){
+                exists = true;
+              }
+            }
+
+            if(!exists){
+              //push to array
+              savedKeys.push(str);
+              //sort the arry
+              savedKeys.sort();
+              //push to saved keys
+              savedKeysUI.innerHTML += "<p>" + str + "</p>";
+              //reset keys
+              keyInput.value = null;
+              //empry alert box
+              alert.innerText='';
+              alert.className='';
+            }else{
+              alertUser(true,'hash index '+str[0]+ ' already exists!');
+            }
+
           }else{
               alertUser(true,'invalid hash!');
           }
