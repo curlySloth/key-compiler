@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>W2TG - K3Y COMPl1L3R</title>
+  <style>
+    *{
+      padding:0;
+      margin:0;
+    }
+  </style>
+</head>
+<body>
+  <input type="text" data-key-input placeholder="ex: 1 - 123123123123" class="key"><button class="saveHash" data-save-key>Save</button>
+
+  <div class="saved-keys" data-saved-keys-ui>
+
+  </div>
+
+  <div class="compiled-key"></div>
+  <div class="inputs">
+    <button data-comple-btn>complie key</button>
+  </div>
+
+  <script>
+    var keyInput = document.querySelector('[data-key-input]');
+    var saveKeyBTN = document.querySelector('[data-save-key]');
+    var savedKeys = [];
+    var savedKeysUI = document.querySelector('[data-saved-keys-ui]');
+    var compileBTN = document.querySelector('[data-comple-btn]');
+
+
+    saveKeyBTN.addEventListener('click',function(){
+      if(keyInput.value){
+       let str= keyInput.value;
+       //remove spaces
+         str = str.replace(/\s/g, "") ;
+         console.log(str.length);
+         if(str.length == 13){
+           //push to array
+            savedKeys.push(str);
+            //sort the arry
+            savedKeys.sort();
+           //push to saved keys
+           savedKeysUI.innerHTML += "<p>" + str + "</p>";
+           //reset keys
+           keyInput.value = null;
+         }
+
+        }
+    });
+  </script>
+</body>
+</html>
