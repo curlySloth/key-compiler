@@ -15,7 +15,7 @@
 </head>
 
 <body>
-  <input type="text" data-key-input placeholder="ex: 1 - 123123123123" class="key"><button class="saveHash" data-save-key>Save</button>
+  <label>Enter hash: <br><input type="text" data-key-input placeholder="ex: 1 - 123123123123" class="key"></label><button class="saveHash" data-save-key>Save</button>
 
   <div class="saved-keys" data-saved-keys-ui>
 
@@ -108,6 +108,14 @@
     }
   );
 
+  //press enter to submit
+  keyInput.addEventListener('keydown',function(e){
+
+    if(e.keyCode == 13){
+      saveKeyBTN.click();
+    }
+  });
+
 
   compileBTN.addEventListener('click',function(){
       if(savedKeys.length == 8){
@@ -118,7 +126,6 @@
         for(let i = 0; i<savedKeys.length;i++){
           compiledKey += savedKeys[i].substring(2);
         }
-        console.log(compiledKey.length);
         compiledKeyBox.innerText = compiledKey;
       }
   });
