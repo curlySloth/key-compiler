@@ -14,7 +14,7 @@
   <label>Enter hash: <br><input type="text" data-key-input placeholder="ex: 1 - 123123123123" class="key"></label><button class="saveHash" data-save-key>Save</button>
 
   <div class="saved-keys" data-saved-keys-ui>
-    <h3>keys:</h3>
+
   </div>
 
 
@@ -71,7 +71,11 @@
                 //sort the arry
                 savedKeys.sort();
                 //push to saved keys
-                savedKeysUI.innerHTML += "<p>" + str + "</p>";
+                let uiString ='<h3>Keys:</h3>';
+                for(let i = 0; i< savedKeys.length; i++){
+                  uiString += "<p>" + savedKeys[i] + "</p>";
+                }
+                savedKeysUI.innerHTML = uiString;
                 //reset keys
                 keyInput.value = null;
                 //empry alert box
