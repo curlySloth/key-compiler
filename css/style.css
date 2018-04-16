@@ -25,3 +25,11 @@ button:disabled{
 .compiled-key{
   font-family: monospace;;
 }
+
+
+.invalid{
+  margin-top: 15px;
+  border: 1px solid red;
+  color:red;
+  font-weight: bold;
+}
