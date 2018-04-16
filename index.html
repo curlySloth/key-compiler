@@ -6,19 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>W2TG - K3Y COMPl1L3R</title>
-  <style>
-    * {
-      padding: 0;
-      margin: 0;
-    }
-  </style>
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
   <label>Enter hash: <br><input type="text" data-key-input placeholder="ex: 1 - 123123123123" class="key"></label><button class="saveHash" data-save-key>Save</button>
 
   <div class="saved-keys" data-saved-keys-ui>
-
+    <h3>keys:</h3>
   </div>
 
 
@@ -126,7 +122,7 @@
         for(let i = 0; i<savedKeys.length;i++){
           compiledKey += savedKeys[i].substring(2);
         }
-        compiledKeyBox.innerText = compiledKey;
+        compiledKeyBox.innerHTML = "<h1>compiled Key:</h1>" + compiledKey;
       }
   });
   </script>
