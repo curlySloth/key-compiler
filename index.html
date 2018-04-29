@@ -5,12 +5,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>W2TG - K3Y COMP1L3R</title>
+  <title>W2TG helper</title>
   <link rel="stylesheet" href="./css/reset.css">
   <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
+  <main>
+    <div class="compile-key">
+    <h1>K3Y COMP1L3R</h1>
   <label>Enter hash: <br><input type="text" data-key-input placeholder="ex: 1 - 123123123123" class="key"></label><button class="saveHash" data-save-key>Save</button>
 
   <div class="saved-keys" data-saved-keys-ui>
@@ -23,113 +26,43 @@
   </div>
   <div class="alert"></div>
   <div class="compiled-key"></div>
-  <script>
-    var keyInput = document.querySelector('[data-key-input]');
-    var saveKeyBTN = document.querySelector('[data-save-key]');
-    var savedKeys = [];
-    var savedKeysUI = document.querySelector('[data-saved-keys-ui]');
-    var compiledKeyBox = document.querySelector('.compiled-key');
-    var compileBTN = document.querySelector('[data-comple-btn]');
-    var alert = document.querySelector('.alert');
+</div>
 
-    var hashRegex = /[1-8]{1}-[a-zA-Z0-9]{12}/;
+<div class="Wifi">
+  <h1>wifus</h1>
+  <div class="wifi-inputs">
+    <div>
+<input type="text" placeholder="*wifi name" data-wifi-name><br>
+<input type="text" placeholder="*password" data-wifi-password><br>
+</div>
+<div>
+type: <br>
+<label><input type="radio" checked name="wifi-type">WEP</label><br>
+<label><input type="radio" name="wifi-type">WPA</label><br>
+<label><input type="radio" name="wifi-type">WPA2</label><br>
+</div>
+<div>
+<button data-wifi-save-btn>save</button>
 
-    function alertUser(error,text){
-      //error = bool
-      if(error){
-        alert.className='invalid';
-        alert.innerText = text;
-      }else{
-        alert.className='valid';
-        alert.innerText = text;
-      }
-    }
-    saveKeyBTN.addEventListener('click', function() {
-      //if there is input
-      if (keyInput.value) {
-        let str = keyInput.value;
-        //remove spaces
-        str = str.replace(/\s/g, "");
-        //if the length is mached
-        if (str.length == 14) {
-          //if regex mached
-          if(hashRegex.test(str)){
-              let exists = false;
-            //check if index number already exsits
-            for (let i = 0; i < savedKeys.length;i++){
-              if(str[0] == savedKeys[i][0]){
-                exists = true;
-              }
-            }
+</div>
 
-            if(!exists){
+  </div>
+  <div class="wifi-alert" style="margin-bottom:10px;"></div>
+  <div class="saved-wifis">
+    <table>
+      <thead>
+        <th>wifi name</th><th>password</th><th>type</th>
+      </thead>
+      <tbody data-wifi-table>
 
-              //check if already got 8 hashes
-              if(savedKeys.length < 8){
-                //push to array
-                savedKeys.push(str);
-                //sort the arry
-                savedKeys.sort();
-                //push to saved keys
-                let uiString ='<h3>Keys:</h3>';
-                for(let i = 0; i< savedKeys.length; i++){
-                  uiString += "<p>" + savedKeys[i] + "</p>";
-                }
-                savedKeysUI.innerHTML = uiString;
-                //reset keys
-                keyInput.value = null;
-                //empry alert box
-                alert.innerText='';
-                alert.className='';
-              }else{
-                alertUser(true,'already got 8 hashes!');
-              }
+      </tbody>
+    </table>
+  </div>
 
-            }else{
-              alertUser(true,'hash index '+str[0]+ ' already exists!');
-            }
-
-          }else{
-              alertUser(true,'invalid hash!');
-          }
-
-        } else {
-          //if input not long enough || to short
-          alertUser(true,'hash to short / to long!');
-        }
-      } else {
-        //if input empty
-        alertUser(true,'no hash found!');
-      }
-      //check if there are 8 hashes
-      if(savedKeys.length == 8){
-        compileBTN.disabled = false;
-      }
-    }
-  );
-
-  //press enter to submit
-  keyInput.addEventListener('keydown',function(e){
-
-    if(e.keyCode == 13){
-      saveKeyBTN.click();
-    }
-  });
-
-
-  compileBTN.addEventListener('click',function(){
-      if(savedKeys.length == 8){
-        let compiledKey ='';
-        savedKeys.sort();
-
-        //compile keys
-        for(let i = 0; i<savedKeys.length;i++){
-          compiledKey += savedKeys[i].substring(2);
-        }
-        compiledKeyBox.innerHTML = "<h1>compiled Key:</h1>" + compiledKey;
-      }
-  });
-  </script>
+</div>
+</main>
+<script src="./js/key-compiler.js" charset="utf-8"></script>
+<script src="./js/wifi.js"></script>
 </body>
 
 </html>

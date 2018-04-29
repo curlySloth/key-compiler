@@ -3,8 +3,14 @@ body{
   color:#fff;
   font-family: sans-serif;
   text-align: center;
-  padding:15px;
+
 }
+
+main{
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
 .saved-keys p {
   font-family: monospace;
 }
@@ -32,4 +38,35 @@ button:disabled{
   border: 1px solid red;
   color:red;
   font-weight: bold;
+}
+
+
+.inputs{
+  margin-top:10px;
+}
+
+
+/*wifi tracker*/
+.wifi-inputs {
+ padding:15px;
+ display: -webkit-flex;
+ display: -ms-flex;
+ display: flex;
+}
+.wifi-inputs div{
+  padding:15px;
+}
+table{
+width:100%;
+border-collapse:collapse;
+
+}
+tr{
+padding:0;
+
+
+}
+td,th{
+border:1px solid #fff;
+  text-align: center;
 }
